@@ -13,6 +13,8 @@ const ReviewSchema = new mongoose.Schema(
     },
     how_long_to_beat: { type: Number, required: true },
     steam_price: { type: Number, required: true },
+    status: { type: String, required: true },
+    published: { type: Boolean, default: true },
   },
 
   {
