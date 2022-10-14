@@ -5,13 +5,22 @@ const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 require('dotenv').config();
 
+exports.get_reviews = async function (req, res, next) {
+  res.send({ reviews: await Review.find() });
+};
+
 exports.post_login = passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
 });
 
-exports.get_reviews = async function (req, res, next) {
-  res.send({ reviews: await Review.find() });
+exports.get_logout = function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
 };
 
 exports.post_signup = async function (req, res, next) {

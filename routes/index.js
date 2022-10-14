@@ -5,6 +5,7 @@ const {
   get_reviews,
   post_login,
   post_signup,
+  get_logout,
 } = require('../controllers/controllers');
 
 /* GET home page. */
@@ -21,6 +22,8 @@ router.get('/reviews', get_reviews);
 router.post('/login', post_login);
 
 router.post('/signup', post_signup);
+
+router.get('/logout', get_logout);
 
 function signToken(payload) {
   return jwt.sign(payload, process.env.JWTSECRET);
