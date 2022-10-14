@@ -34,12 +34,12 @@ passport.use(
       usernameField: 'username',
     },
     (username, password, done) => {
-      User.findOne({ email: username }, (err, user) => {
+      User.findOne({ username }, (err, user) => {
         if (err) {
           return done(err);
         }
         if (!user) {
-          return done(null, false, { message: 'Incorrect email' });
+          return done(null, false, { message: 'Incorrect username' });
         }
         bcrypt.compare(password, user.password, (err, res) => {
           if (res) {
@@ -81,11 +81,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
-  next();
-});
 
 app.use('/', indexRouter);
 
