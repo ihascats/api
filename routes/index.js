@@ -12,6 +12,7 @@ const {
   delete_reviews,
   put_reviews_published,
   get_login_key,
+  signupValidate,
 } = require('../controllers/controllers');
 
 /* GET home page. */
@@ -29,15 +30,15 @@ router.get('/reviews/:id', get_reviews_by_id);
 
 router.put('/reviews/:id', verifyToken, put_reviews);
 
-router.put('/reviews/published/:id', verifyToken, put_reviews_published);
-
 router.delete('/reviews/:id', verifyToken, delete_reviews);
+
+router.put('/reviews/published/:id', verifyToken, put_reviews_published);
 
 router.get('/login', get_login_key);
 
 router.post('/login', post_login);
 
-router.post('/signup', post_signup);
+router.post('/signup', signupValidate, post_signup);
 
 router.get('/logout', get_logout);
 

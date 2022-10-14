@@ -10,6 +10,30 @@ function signToken(payload) {
   return jwt.sign(payload, process.env.JWTSECRET);
 }
 
+exports.signupValidate = [
+  check('username')
+    .isLength({ min: 2 })
+    .withMessage('Username must be at least 2 characters')
+    .isLength({ max: 20 })
+    .withMessage('Username must be at most 20 characters')
+    .trim()
+    .escape(),
+  check('password')
+    .isLength({ min: 8 })
+    .withMessage('Password Must Be at Least 8 Characters')
+    .matches('[0-9]')
+    .withMessage('Password Must Contain a Number')
+    .matches('[a-z]')
+    .withMessage('Password Must Contain a Lowercase Letter')
+    .matches('[A-Z]')
+    .withMessage('Password Must Contain an Uppercase Letter')
+    .matches(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)
+    .withMessage('Password Must Contain a Special Character')
+    .trim()
+    .escape(),
+  check('adminAccessKey').trim().escape(),
+];
+
 exports.get_login_key = function (req, res, next) {
   if (req.user) {
     res.send(signToken({ user: req.user }));
