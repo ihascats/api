@@ -16,7 +16,9 @@ const {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.send({ test: 'working' });
+  res.send(
+    'Game Review Api\n* marks admin specific requests\n\nGET [ /reviews ] : retrieve a list of all review ids\n*POST [ /reviews ] : create new post\n\nGET [ /reviews:id ] : retrieve id specified review info\n*PUT [ /reviews:id ] : update id specified review\n*DELETE [ /reviews:id ] : delete id specified review\n\n*PUT [ /reviews/published/:id ]: update review published status\n\n*GET [ /login ] : get login token\n*POST [ /login ] : send login info\n*POST [ /signup ] : create new admin account\n*GET [ /logout ] : self explanatory',
+  );
 });
 
 router.get('/reviews', get_reviews);
