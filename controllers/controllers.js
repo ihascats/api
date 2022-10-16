@@ -51,6 +51,10 @@ exports.get_reviews = async function (req, res, next) {
   );
 };
 
+exports.get_reviews_all = async function (req, res, next) {
+  res.send(await Review.find({}, { _id: 1, steam_id: 1, game_title: 1 }));
+};
+
 exports.get_reviews_by_id = async function (req, res, next) {
   res.send(await Review.findById(req.params.id));
 };

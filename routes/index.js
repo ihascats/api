@@ -13,6 +13,7 @@ const {
   put_reviews_published,
   get_login_key,
   signupValidate,
+  get_reviews_all,
 } = require('../controllers/controllers');
 
 /* GET home page. */
@@ -25,6 +26,8 @@ router.get('/', function (req, res, next) {
 router.get('/reviews', get_reviews);
 
 router.post('/reviews', verifyToken, post_reviews);
+
+router.get('/reviews/all', verifyToken, get_reviews_all);
 
 router.get('/reviews/:id', get_reviews_by_id);
 
@@ -45,12 +48,12 @@ router.get('/logout', get_logout);
 function verifyToken(req, res, next) {
   const token = req.headers.Authorization || req.headers.authorization || '';
   if (!token) {
-    return res.status(403).json({ error: 'Not authorized' });
+    return res.status(401).json({ error: 'Not authorized' });
   }
 
   jwt.verify(token, process.env.JWTSECRET, (err, authData) => {
     if (err) {
-      return res.status(403).json({ error: 'Not authorized' });
+      return res.status(401).json({ error: 'Not authorized' });
     }
 
     req.authData = authData;
