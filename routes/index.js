@@ -5,7 +5,6 @@ const {
   get_reviews,
   post_login,
   post_signup,
-  get_logout,
   post_reviews,
   get_reviews_by_id,
   put_reviews,

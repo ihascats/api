@@ -46,13 +46,18 @@ exports.get_reviews = async function (req, res, next) {
   res.send(
     await Review.find(
       { published: true },
-      { _id: 1, steam_id: 1, game_title: 1 },
-    ),
+      { _id: 1, steam_id: 1, game_title: 1, published: 1 },
+    ).sort({ createdAt: -1 }),
   );
 };
 
 exports.get_reviews_all = async function (req, res, next) {
-  res.send(await Review.find({}, { _id: 1, steam_id: 1, game_title: 1 }));
+  res.send(
+    await Review.find(
+      {},
+      { _id: 1, steam_id: 1, game_title: 1, published: 1 },
+    ).sort({ createdAt: -1 }),
+  );
 };
 
 exports.get_reviews_by_id = async function (req, res, next) {
