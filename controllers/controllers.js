@@ -129,17 +129,12 @@ exports.post_reviews = async function (req, res, next) {
 };
 
 exports.post_login = passport.authenticate('local', {
-  successRedirect: '/login',
-  failureRedirect: '/login',
+  failureRedirect: '/login/failed',
+  failureMessage: true,
 });
 
-exports.get_logout = function (req, res, next) {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.send({ status: 'Logged out successfully' });
-  });
+exports.get_login_failed = function (req, res, next) {
+  res.status(401).send({ status: 'No Admin Access' });
 };
 
 exports.post_signup = async function (req, res, next) {

@@ -14,6 +14,7 @@ const {
   get_login_key,
   signupValidate,
   get_reviews_all,
+  get_login_failed,
 } = require('../controllers/controllers');
 
 /* GET home page. */
@@ -37,13 +38,11 @@ router.delete('/reviews/:id', verifyToken, delete_reviews);
 
 router.put('/reviews/published/:id', verifyToken, put_reviews_published);
 
-router.get('/login', get_login_key);
+router.post('/login', post_login, get_login_key);
 
-router.post('/login', post_login);
+router.get('/login/failed', get_login_failed);
 
 router.post('/signup', signupValidate, post_signup);
-
-router.get('/logout', get_logout);
 
 function verifyToken(req, res, next) {
   const token = req.headers.Authorization || req.headers.authorization || '';
