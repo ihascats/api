@@ -14,6 +14,8 @@ const {
   signupValidate,
   get_reviews_all,
   get_login_failed,
+  get_steam_api,
+  get_hltb_api,
 } = require('../controllers/controllers');
 
 /* GET home page. */
@@ -42,6 +44,10 @@ router.post('/login', post_login, get_login_key);
 router.get('/login/failed', get_login_failed);
 
 router.post('/signup', signupValidate, post_signup);
+
+router.get('/steam-api/:id', get_steam_api);
+
+router.get('/hltb-api/:name', get_hltb_api);
 
 function verifyToken(req, res, next) {
   const token = req.headers.Authorization || req.headers.authorization || '';

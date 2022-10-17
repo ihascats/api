@@ -4,6 +4,10 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
+let hltb = require('howlongtobeat');
+let hltbService = new hltb.HowLongToBeatService();
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
 require('dotenv').config();
 
 function signToken(payload) {
@@ -169,5 +173,31 @@ exports.post_signup = async function (req, res, next) {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+exports.get_steam_api = async function (req, res, next) {
+  const response = await fetch(
+    `https://store.steampowered.com/api/appdetails/?appids=${req.params.id}&cc=us&filters=price_overview`,
+    {
+      method: 'GET',
+      mode: 'cors',
+    },
+  );
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    res.send(json[`${req.params.id}`].data.price_overview);
+  } else {
+    res.send({ response });
+  }
+};
+
+exports.get_hltb_api = async function (req, res, next) {
+  const response = await hltbService.search(req.params.name);
+  if (response.status === 200) {
+    const json = await response.json(); //extract JSON from the http response
+    res.send({ game_info: json });
+  } else {
+    res.send({ response });
   }
 };
