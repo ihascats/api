@@ -72,16 +72,18 @@ exports.put_reviews_published = async function (req, res, next) {
   const publishedStatus = await Review.findById(req.params.id);
   Review.findByIdAndUpdate(req.params.id, {
     published: !publishedStatus.published,
-  }).then(() => {
+  }).then(async () => {
     if (!publishedStatus.published) {
       res.send({
-        status: 'Successfully published review',
+        state: 'Successfully published review',
         _id: req.params.id,
+        review: await Review.findById(req.params.id),
       });
     } else {
       res.send({
-        status: 'Successfully unpublished review',
+        state: 'Successfully published review',
         _id: req.params.id,
+        review: await Review.findById(req.params.id),
       });
     }
   });
@@ -98,8 +100,11 @@ exports.put_reviews = function (req, res, next) {
     status: req.body.status,
     published: req.body.published,
     steam_id: req.body.steam_id,
-  }).then(() => {
-    res.send({ status: 'Review updated successfully' });
+  }).then(async () => {
+    res.send({
+      status: 'Review updated successfully',
+      review: await Review.findById(req.params.id),
+    });
   });
 };
 
