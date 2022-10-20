@@ -134,7 +134,13 @@ exports.post_reviews = async function (req, res, next) {
       if (error) {
         return next(error);
       } else {
-        res.send({ status: 'Review created successfully' });
+        res.send({
+          status: 'Review created successfully',
+          reviews: await Review.find(
+            {},
+            { _id: 1, steam_id: 1, game_title: 1, published: 1 },
+          ).sort({ createdAt: -1 }),
+        });
       }
     });
   } catch (error) {
