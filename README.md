@@ -4,6 +4,8 @@
   <img src="https://img.shields.io/badge/JavaScript-3C005A?style=for-the-badge&logo=javascript&logoColor=white" height=30>
   <img src="https://img.shields.io/badge/Node.js-3C005A?style=for-the-badge&logo=nodedotjs&logoColor=white" height=30>
   <img src="https://img.shields.io/badge/Express.js-3C005A?style=for-the-badge&logo=express&logoColor=white" height=30>
+  <img src="https://img.shields.io/badge/MongoDB-3C005A?style=for-the-badge&logo=mongodb&logoColor=white" height=30>
+
 </p>
 
 \* - <i>marks admin specific requests</i>
